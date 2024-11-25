@@ -9,9 +9,14 @@ export default {
   theme: {
     extend: {
       colors: {
+        elements: "var(--elements)",
         background: "var(--background)",
-        foreground: "var(--foreground)",
+        text: "var(--text)",
+        input: "var(--input)",
       },
+      fontFamily : {
+        Nunito : ["Nunito"]
+      }
     },
   },
   plugins: [],

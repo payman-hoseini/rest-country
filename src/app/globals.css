@@ -2,20 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face{
+  font-family: "Nunito";
+  font-weight: 300;
+  src: url('./../../public/fonts/NunitoSans_10pt-Light.ttf');
+}
+@font-face{
+  font-family: "Nunito";
+  font-weight: 600;
+  src: url('./../../public/fonts/NunitoSans_10pt-SemiBold.ttf');
+}
+@font-face{
+  font-family: "Nunito";
+  font-weight: 800;
+  src: url('./../../public/fonts/NunitoSans_10pt-Black.ttf');
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark{
+    --elements : hsl(209, 23%, 22%);
+    --background : hsl(207, 26%, 17%);
+    --text : hsl(0, 0%, 100%);
+    --input : hsl(0, 0%, 100%);
 }
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.light{
+  --elements : hsl(0, 0%, 100%);
+  --background : hsl(0, 0%, 98%);
+  --text : hsl(200, 15%, 8%);
+  --input : hsl(0, 0%, 52%);
+}
+.inputBack{
+  background-color: var(--elements);
+  background-position: 15px;
+}
+input::placeholder{
+  color: var(--text);
+}
+.select{
+  background-color: var(--elements);
 }
