@@ -1,4 +1,6 @@
 import { promises as fs } from 'fs';
+import Country from './components/country';
+import Image from 'next/image';
 
 export default async function Home() {
   const file = await fs.readFile(process.cwd() + '/src/app/data.json' , 'utf8')
@@ -27,7 +29,7 @@ export default async function Home() {
                   </svg>
                 </div>
               </div>
-              <select name="region" id="region" className='select text-text w-1/6 px-4 rounded'>
+              <select name="region" id="region" className='select text-text w-1/6 px-4 rounded outline-none'>
                 <option value="" className='hidden'>Filter by Region</option>
                 <option value="Africa">Africa</option>
                 <option value="America">America</option>
@@ -35,6 +37,21 @@ export default async function Home() {
                 <option value="Europe">Europe</option>
                 <option value="Oceania">Oceania</option>
               </select>
+            </div>
+            <div className='bg-background mt-10 grid grid-cols-4 gap-16 font-Nunito'>
+              {
+                countries.map((country : Country) => (
+                  <div key={country.name} className='bg-elements rounded drop-shadow-md'>
+                    <Image src={country.flags.svg} alt={country.name} width={350} height={100}/>
+                    <div className='pb-5 px-5 text-text space-y-1'>
+                      <p className='font-semibold py-5 text-lg'>{country.name}</p>
+                      <p>Population:<span className='font-light'> {country.population}</span></p>
+                      <p>Region:<span className='font-light'> {country.region}</span></p>
+                      <p>Capital:<span className='font-light'> {country.capital}</span></p>
+                    </div>
+                  </div>
+                ))
+              }
             </div>
           </div>
       </main>
