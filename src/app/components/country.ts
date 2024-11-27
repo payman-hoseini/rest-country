@@ -1,6 +1,7 @@
 export default interface Country {
     name : string,
     topLevelDomain : string[],
+    alpha3Code : string
     capital : string,
     subregion : string,
     region : string,

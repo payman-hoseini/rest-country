@@ -1,6 +1,7 @@
 import { promises as fs } from 'fs';
 import Country from './components/country';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default async function Home() {
   const file = await fs.readFile(process.cwd() + '/src/app/data.json' , 'utf8')
@@ -41,15 +42,17 @@ export default async function Home() {
             <div className='bg-background mt-10 grid grid-cols-4 gap-16 font-Nunito'>
               {
                 countries.map((country : Country) => (
-                  <div key={country.name} className='bg-elements rounded drop-shadow-md'>
-                    <Image src={country.flags.svg} alt={country.name} width={350} height={100}/>
+                  <Link href={`/${country.name}`} key={country.name} className='bg-elements rounded drop-shadow-md flex flex-col hover:drop-shadow-2xl'>
+                    <div className='w-full'>
+                      <Image src={country.flags.svg} alt={country.name} width={340} height={100} className='rounded-t object-cover xl:h-[200px] lg:h-[150px]'/>
+                    </div>
                     <div className='pb-5 px-5 text-text space-y-1'>
                       <p className='font-semibold py-5 text-lg'>{country.name}</p>
                       <p>Population:<span className='font-light'> {country.population}</span></p>
                       <p>Region:<span className='font-light'> {country.region}</span></p>
                       <p>Capital:<span className='font-light'> {country.capital}</span></p>
                     </div>
-                  </div>
+                  </Link>
                 ))
               }
             </div>
