@@ -50,7 +50,7 @@ export default async function Home() {
                       <p className='font-semibold py-5 text-lg'>{country.name}</p>
                       <p>Population:<span className='font-light'> {country.population}</span></p>
                       <p>Region:<span className='font-light'> {country.region}</span></p>
-                      <p>Capital:<span className='font-light'> {country.capital}</span></p>
+                      <p>Capital:<span className='font-light'> {country.capital==undefined ? "No Capital"  : country.capital}</span></p>
                     </div>
                   </Link>
                 ))
