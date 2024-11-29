@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 export default async function Home() {
   const file = await fs.readFile(process.cwd() + '/src/app/data.json' , 'utf8')
-  const countries = JSON.parse(file)
+  const countries : Country[] = JSON.parse(file)
   return (
     <>
       {/* <div className="dark bg-elements font-Nunito py-5 drop-shadow-md">
@@ -48,9 +48,9 @@ export default async function Home() {
                     </div>
                     <div className='pb-5 px-5 text-text space-y-1'>
                       <p className='font-semibold py-5 text-lg'>{country.name}</p>
-                      <p>Population:<span className='font-light'> {country.population}</span></p>
-                      <p>Region:<span className='font-light'> {country.region}</span></p>
-                      <p>Capital:<span className='font-light'> {country.capital==undefined ? "No Capital"  : country.capital}</span></p>
+                      <p className='font-semibold'>Population:<span className='font-light'> {country.population}</span></p>
+                      <p className='font-semibold'>Region:<span className='font-light'> {country.region}</span></p>
+                      <p className='font-semibold'>Capital:<span className='font-light'> {country.capital==undefined ? "No Capital"  : country.capital}</span></p>
                     </div>
                   </Link>
                 ))

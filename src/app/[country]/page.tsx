@@ -14,10 +14,19 @@ export default async function CountryPage({ params } : { params : Promise<{ coun
                return country
           }
      })
-     console.log(countryNameParam)
+     let borderCountry : Country[]  = [];
+     if(Array.isArray(countryInfo?.borders)){
+          for( let i =0 ; i< countryInfo?.borders.length ; i++){
+               borderCountry.push(countrieslist.find(( country : Country ) => {
+                    if(country.alpha3Code == countryInfo.borders[i]){
+                         return country.name
+                    }
+               })) 
+          }
+     }
+     console.log(borderCountry)
      return(
           <>
-               
                <main className='bg-background h-screen'>
                     <div className='container mx-auto pt-10'>
                          <Link href='/' className='bg-elements inline-block px-8 py-[10px] rounded drop-shadow-md'>
@@ -49,10 +58,11 @@ export default async function CountryPage({ params } : { params : Promise<{ coun
                                         </div>
                                    </div>
                                    <div className='mt-16 flex items-center space-x-2'>
-                                        <p>Border Countries:</p>
+                                        <p className='font-semibold text-nowrap'>Border Countries:</p>
                                         <div className='flex space-x-3'>
                                              {
-                                                  Array.isArray(countryInfo?.borders) ?  countryInfo.borders.map(border => <p className='bg-elements px-5 py-1 text-sm rounded' key={border}>{border}</p>)  : <p className='bg-elements px-5 py-1 text-sm rounded'>No Country</p>
+                                                  Array.isArray(countryInfo?.borders) ?  borderCountry.map(border => <p className='bg-elements px-5 py-1 text-sm rounded shadow text-nowrap' key={border.alpha3Code}>{border.name}</p>)  : <p className='bg-elements px-5 py-1 text-sm rounded shadow'>No Country</p>
+                                                  // countryInfo.borders.map(border => <p className='bg-elements px-5 py-1 text-sm rounded shadow' key={border}>{border}</p>)
                                              }
                                         </div>
                                    </div>
