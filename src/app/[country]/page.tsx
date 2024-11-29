@@ -17,18 +17,8 @@ export default async function CountryPage({ params } : { params : Promise<{ coun
      console.log(countryNameParam)
      return(
           <>
-               <div className="dark bg-elements font-Nunito py-5 drop-shadow-md">
-                    <div className='container mx-auto flex justify-between items-centerd'>
-                         <p className='font-black text-xl text-text'>Where in the world?</p>
-                         <div className='flex items-center gap-3'>
-                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 stroke-text fill-text">
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-                         </svg>
-                         <button className='text-text font-semibold'>Dark Mode</button>
-                         </div>
-                    </div>
-               </div>
-               <main className='dark bg-background h-screen'>
+               
+               <main className='bg-background h-screen'>
                     <div className='container mx-auto pt-10'>
                          <Link href='/' className='bg-elements inline-block px-8 py-[10px] rounded drop-shadow-md'>
                               <div className='flex items-center gap-2 font-Nunito text-sm'>
@@ -40,7 +30,7 @@ export default async function CountryPage({ params } : { params : Promise<{ coun
                          </Link>
                          <div className='mt-16 flex items-center'>
                               <div>
-                                   <Image src={countryInfo?.flags?.svg} alt={countryInfo?.name} width={600} height={500}/>
+                                   <Image src={countryInfo?.flags?.svg} alt={countryInfo?.name} width={600} height={500} className='object-cover'/>
                               </div>
                               <div className='ml-36 font-Nunito text-text'>
                                    <p className='text-text font-bold text-3xl'>{countryInfo?.name}</p>

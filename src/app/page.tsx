@@ -8,7 +8,7 @@ export default async function Home() {
   const countries = JSON.parse(file)
   return (
     <>
-      <div className="dark bg-elements font-Nunito py-5 drop-shadow-md">
+      {/* <div className="dark bg-elements font-Nunito py-5 drop-shadow-md">
         <div className='container mx-auto flex justify-between items-centerd'>
           <p className='font-black text-xl text-text'>Where in the world?</p>
           <div className='flex items-center gap-3'>
@@ -18,8 +18,8 @@ export default async function Home() {
               <button className='text-text font-semibold'>Dark Mode</button>
           </div>
         </div>
-      </div>
-      <main className='dark bg-background  pt-10'>
+      </div> */}
+      <main className=' bg-background  pt-10'>
           <div className='container mx-auto'>
             <div className='flex justify-between font-Nunito'>
               <div className='relative w-full'>
