@@ -19,7 +19,7 @@ export default async function Home() {
           </div>
         </div>
       </div> */}
-      <main className=' bg-background  pt-10 h-screen'>
+      <main className=' bg-background  pt-10'>
           <div className='container mx-auto'>
             <CountryList countries={countries}/>
           </div>

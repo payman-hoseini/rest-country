@@ -2,6 +2,7 @@ import { promises as fs } from 'fs';
 import Country from '../components/country';
 import Link from 'next/link';
 import Image from 'next/image';
+import { separate } from '../components/shared/seprate';
 
 export default async function CountryPage({ params } : { params : Promise<{ country: string }> }){ 
      const file = await fs.readFile(process.cwd() + '/src/app/data.json' , 'utf8')
@@ -46,7 +47,7 @@ export default async function CountryPage({ params } : { params : Promise<{ coun
                                    <div className='mt-8 font-semibold flex'>
                                         <div className='space-y-2'>
                                              <p>Native Name: <span className='font-light'>{countryInfo?.nativeName}</span></p>
-                                             <p>Population: <span className='font-light'>{countryInfo?.population}</span></p>
+                                             <p>Population: <span className='font-light'>{separate(countryInfo?.population)}</span></p>
                                              <p>Region: <span className='font-light'>{countryInfo?.region}</span></p>
                                              <p>Sub Region: <span className='font-light'>{countryInfo?.subregion}</span></p>
                                              <p>Capital: <span className='font-light'>{countryInfo.capital==undefined ? "No Capital" : countryInfo?.capital}</span></p>

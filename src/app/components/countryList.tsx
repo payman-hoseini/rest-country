@@ -3,6 +3,7 @@ import Country from "./country";
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRef, useState } from "react";
+import { separate } from "./shared/seprate";
 
 export default function CountryList({ countries } : {countries : Country[]}){
     const inputRef = useRef(null)
@@ -18,7 +19,8 @@ export default function CountryList({ countries } : {countries : Country[]}){
         }
         
     })  
-    console.log(findCountry)
+    
+    
     return(
         <>
             <div className='flex justify-between font-Nunito'>
@@ -49,7 +51,7 @@ export default function CountryList({ countries } : {countries : Country[]}){
                     </div>
                     <div className='pb-5 px-5 text-text space-y-1'>
                       <p className='font-semibold py-5 text-lg'>{country.name}</p>
-                      <p className='font-semibold'>Population:<span className='font-light'> {country.population}</span></p>
+                      <p className='font-semibold'>Population:<span className='font-light'> {separate(country.population)}</span></p>
                       <p className='font-semibold'>Region:<span className='font-light'> {country.region}</span></p>
                       <p className='font-semibold'>Capital:<span className='font-light'> {country.capital==undefined ? "No Capital"  : country.capital}</span></p>
                     </div>
@@ -63,7 +65,7 @@ export default function CountryList({ countries } : {countries : Country[]}){
                         </div>
                         <div className='pb-5 px-5 text-text space-y-1'>
                         <p className='font-semibold py-5 text-lg'>{findCountry?.name}</p>
-                        <p className='font-semibold'>Population:<span className='font-light'> {findCountry?.population}</span></p>
+                        <p className='font-semibold'>Population:<span className='font-light'> {separate(findCountry?.population)}</span></p>
                         <p className='font-semibold'>Region:<span className='font-light'> {findCountry?.region}</span></p>
                         <p className='font-semibold'>Capital:<span className='font-light'> {findCountry?.capital==undefined ? "No Capital"  : findCountry?.capital}</span></p>
                         </div>
