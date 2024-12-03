@@ -9,6 +9,16 @@ export default function CountryList({ countries } : {countries : Country[]}){
     const inputRef = useRef(null)
     const [inputCountryName , setInputCountryName] = useState("")
     let findCountry : Country | undefined
+    let africanCountries : Country[]
+    let americaCountries : Country[]
+    let asiaCountries : Country[]
+    let europeCountries : Country[]
+    let oceaniaCountries : Country[]
+    const [region , setRegion] = useState("All")
+    
+    function regionHandler(e : React.ChangeEvent<HTMLSelectElement>){
+      setRegion(e.target.value)
+    }
     function inputCountryNameHandler(inputCountry : React.ChangeEvent<HTMLInputElement>){
         setInputCountryName(inputCountry.target.value)
     }
@@ -19,8 +29,31 @@ export default function CountryList({ countries } : {countries : Country[]}){
         }
         
     })  
-    
-    
+    africanCountries = countries.filter((country : Country) => {
+      if(country.region == "Africa"){
+        return country
+      }
+    })
+    americaCountries = countries.filter((country : Country) => {
+      if(country.region == "Americas"){
+        return country
+      }
+    })
+    asiaCountries = countries.filter((country : Country) => {
+      if(country.region == "Asia"){
+        return country
+      }
+    })
+    europeCountries = countries.filter((country : Country) => {
+      if(country.region == "Europe"){
+        return country
+      }
+    })
+    oceaniaCountries = countries.filter((country : Country) => {
+      if(country.region == "Oceania"){
+        return country
+      }
+    })
     return(
         <>
             <div className='flex justify-between font-Nunito'>
@@ -32,9 +65,9 @@ export default function CountryList({ countries } : {countries : Country[]}){
                   </svg>
                 </div>
               </div>
-              <select name="region" id="region" className='select text-text w-1/6 px-4 rounded outline-none'>
-                <option value="" className='hidden'>Filter by Region</option>
-                <option value="Africa">Africa</option>
+              <select name="region" id="region" className='select text-text w-1/6 px-4 rounded outline-none' onChange={regionHandler}>
+                <option value="All" className=''>Filter by Region</option>
+                <option value="Africa" >Africa</option>
                 <option value="America">America</option>
                 <option value="Asia">Asia</option>
                 <option value="Europe">Europe</option>
@@ -43,35 +76,110 @@ export default function CountryList({ countries } : {countries : Country[]}){
             </div>
             <div className='bg-background mt-10 grid grid-cols-4 gap-16 font-Nunito'>
               {
-                inputCountryName == "" ?
-                countries.map((country : Country) => (
-                  <Link href={`/${country.name}`} key={country.name} className='bg-elements rounded drop-shadow-md flex flex-col hover:drop-shadow-2xl'>
-                    <div className='w-full'>
-                      <Image src={country.flags.svg} alt={country.name} width={340} height={100} className='rounded-t object-cover xl:h-[200px] lg:h-[150px]'/>
-                    </div>
-                    <div className='pb-5 px-5 text-text space-y-1'>
-                      <p className='font-semibold py-5 text-lg'>{country.name}</p>
-                      <p className='font-semibold'>Population:<span className='font-light'> {separate(country.population)}</span></p>
-                      <p className='font-semibold'>Region:<span className='font-light'> {country.region}</span></p>
-                      <p className='font-semibold'>Capital:<span className='font-light'> {country.capital==undefined ? "No Capital"  : country.capital}</span></p>
-                    </div>
-                  </Link>
-                ))
+                (region == "All") ?
+                  (inputCountryName == "" ?
+                    countries.map((country : Country) => (
+                      <Link href={`/${country.name}`} key={country.name} className='bg-elements rounded drop-shadow-md flex flex-col hover:drop-shadow-2xl'>
+                        <div className='w-full'>
+                          <Image src={country.flags.svg} alt={country.name} width={340} height={100} className='rounded-t object-cover xl:h-[200px] lg:h-[150px]'/>
+                        </div>
+                        <div className='pb-5 px-5 text-text space-y-1'>
+                          <p className='font-semibold py-5 text-lg'>{country.name}</p>
+                          <p className='font-semibold'>Population:<span className='font-light'> {separate(country.population)}</span></p>
+                          <p className='font-semibold'>Region:<span className='font-light'> {country.region}</span></p>
+                          <p className='font-semibold'>Capital:<span className='font-light'> {country.capital==undefined ? "No Capital"  : country.capital}</span></p>
+                        </div>
+                      </Link>
+                    ))
                 :
                 findCountry != undefined ?
                     <Link href={`/${findCountry?.name}`} key={findCountry?.name} className='bg-elements rounded drop-shadow-md flex flex-col hover:drop-shadow-2xl'>
                         <div className='w-full'>
-                        <Image src={findCountry?.flags.svg} alt={findCountry?.name} width={340} height={100} className='rounded-t object-cover xl:h-[200px] lg:h-[150px]'/>
+                          <Image src={findCountry?.flags.svg} alt={findCountry?.name} width={340} height={100} className='rounded-t object-cover xl:h-[200px] lg:h-[150px]'/>
                         </div>
                         <div className='pb-5 px-5 text-text space-y-1'>
-                        <p className='font-semibold py-5 text-lg'>{findCountry?.name}</p>
-                        <p className='font-semibold'>Population:<span className='font-light'> {separate(findCountry?.population)}</span></p>
-                        <p className='font-semibold'>Region:<span className='font-light'> {findCountry?.region}</span></p>
-                        <p className='font-semibold'>Capital:<span className='font-light'> {findCountry?.capital==undefined ? "No Capital"  : findCountry?.capital}</span></p>
+                          <p className='font-semibold py-5 text-lg'>{findCountry?.name}</p>
+                          <p className='font-semibold'>Population:<span className='font-light'> {separate(findCountry?.population)}</span></p>
+                          <p className='font-semibold'>Region:<span className='font-light'> {findCountry?.region}</span></p>
+                          <p className='font-semibold'>Capital:<span className='font-light'> {findCountry?.capital==undefined ? "No Capital"  : findCountry?.capital}</span></p>
                         </div>
                     </Link>
                 :
-                <p className="font-black text-text text-center text-4xl text-nowrap">Country Not found</p>
+                <p className="font-black text-text text-center text-4xl text-nowrap">Country Not found</p>)
+                :
+                (region == "Africa") ?
+                  africanCountries.map((country : Country) => (
+                    <Link href={`/${country.name}`} key={country.name} className='bg-elements rounded drop-shadow-md flex flex-col hover:drop-shadow-2xl'>
+                        <div className='w-full'>
+                          <Image src={country.flags.svg} alt={country.name} width={340} height={100} className='rounded-t object-cover xl:h-[200px] lg:h-[150px]'/>
+                        </div>
+                        <div className='pb-5 px-5 text-text space-y-1'>
+                          <p className='font-semibold py-5 text-lg'>{country.name}</p>
+                          <p className='font-semibold'>Population:<span className='font-light'> {separate(country.population)}</span></p>
+                          <p className='font-semibold'>Region:<span className='font-light'> {country.region}</span></p>
+                          <p className='font-semibold'>Capital:<span className='font-light'> {country.capital==undefined ? "No Capital"  : country.capital}</span></p>
+                        </div>
+                      </Link>
+                  ))
+                :
+                (region == "America") ?
+                americaCountries.map((country : Country) => (
+                  <Link href={`/${country.name}`} key={country.name} className='bg-elements rounded drop-shadow-md flex flex-col hover:drop-shadow-2xl'>
+                      <div className='w-full'>
+                        <Image src={country.flags.svg} alt={country.name} width={340} height={100} className='rounded-t object-cover xl:h-[200px] lg:h-[150px]'/>
+                      </div>
+                      <div className='pb-5 px-5 text-text space-y-1'>
+                        <p className='font-semibold py-5 text-lg'>{country.name}</p>
+                        <p className='font-semibold'>Population:<span className='font-light'> {separate(country.population)}</span></p>
+                        <p className='font-semibold'>Region:<span className='font-light'> {country.region}</span></p>
+                        <p className='font-semibold'>Capital:<span className='font-light'> {country.capital==undefined ? "No Capital"  : country.capital}</span></p>
+                      </div>
+                    </Link>
+                ))
+                :
+                (region == "Asia") ?
+                asiaCountries.map((country : Country) => (
+                  <Link href={`/${country.name}`} key={country.name} className='bg-elements rounded drop-shadow-md flex flex-col hover:drop-shadow-2xl'>
+                      <div className='w-full'>
+                        <Image src={country.flags.svg} alt={country.name} width={340} height={100} className='rounded-t object-cover xl:h-[200px] lg:h-[150px]'/>
+                      </div>
+                      <div className='pb-5 px-5 text-text space-y-1'>
+                        <p className='font-semibold py-5 text-lg'>{country.name}</p>
+                        <p className='font-semibold'>Population:<span className='font-light'> {separate(country.population)}</span></p>
+                        <p className='font-semibold'>Region:<span className='font-light'> {country.region}</span></p>
+                        <p className='font-semibold'>Capital:<span className='font-light'> {country.capital==undefined ? "No Capital"  : country.capital}</span></p>
+                      </div>
+                    </Link>
+                ))
+                :
+                (region == "Europe") ?
+                europeCountries.map((country : Country) => (
+                  <Link href={`/${country.name}`} key={country.name} className='bg-elements rounded drop-shadow-md flex flex-col hover:drop-shadow-2xl'>
+                      <div className='w-full'>
+                        <Image src={country.flags.svg} alt={country.name} width={340} height={100} className='rounded-t object-cover xl:h-[200px] lg:h-[150px]'/>
+                      </div>
+                      <div className='pb-5 px-5 text-text space-y-1'>
+                        <p className='font-semibold py-5 text-lg'>{country.name}</p>
+                        <p className='font-semibold'>Population:<span className='font-light'> {separate(country.population)}</span></p>
+                        <p className='font-semibold'>Region:<span className='font-light'> {country.region}</span></p>
+                        <p className='font-semibold'>Capital:<span className='font-light'> {country.capital==undefined ? "No Capital"  : country.capital}</span></p>
+                      </div>
+                    </Link>
+                ))
+                :
+                oceaniaCountries.map((country : Country) => (
+                  <Link href={`/${country.name}`} key={country.name} className='bg-elements rounded drop-shadow-md flex flex-col hover:drop-shadow-2xl'>
+                      <div className='w-full'>
+                        <Image src={country.flags.svg} alt={country.name} width={340} height={100} className='rounded-t object-cover xl:h-[200px] lg:h-[150px]'/>
+                      </div>
+                      <div className='pb-5 px-5 text-text space-y-1'>
+                        <p className='font-semibold py-5 text-lg'>{country.name}</p>
+                        <p className='font-semibold'>Population:<span className='font-light'> {separate(country.population)}</span></p>
+                        <p className='font-semibold'>Region:<span className='font-light'> {country.region}</span></p>
+                        <p className='font-semibold'>Capital:<span className='font-light'> {country.capital==undefined ? "No Capital"  : country.capital}</span></p>
+                      </div>
+                    </Link>
+                ))
               }
             </div>
         </>
