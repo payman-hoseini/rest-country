@@ -6,7 +6,6 @@ import { useRef, useState } from "react";
 import { separate } from "./shared/seprate";
 
 export default function CountryList({ countries } : {countries : Country[]}){
-    const inputRef = useRef(null)
     const [inputCountryName , setInputCountryName] = useState("")
     let findCountry : Country | undefined
     let africanCountries : Country[]
@@ -58,7 +57,7 @@ export default function CountryList({ countries } : {countries : Country[]}){
         <>
             <div className='flex flex-col md:flex-row justify-between font-Nunito mx-5 lg:mx-0'>
               <div className='relative w-full '>
-                <input onChange={inputCountryNameHandler} ref={inputRef} type="text" className='inputBack px-12 py-4 rounded w-[90%] md:w-3/6 lg:w-2/6 text-sm outline-none' placeholder='Search for a country...'/>
+                <input onChange={inputCountryNameHandler} type="text" className='inputBack px-12 py-4 rounded w-[90%] md:w-3/6 lg:w-2/6 text-sm outline-none' placeholder='Search for a country...'/>
                 <div className='absolute inset-y-3 left-3'>
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 stroke-text">
                     <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
@@ -81,7 +80,7 @@ export default function CountryList({ countries } : {countries : Country[]}){
                     countries.map((country : Country) => (
                       <Link href={`/${country.name}`} key={country.name} className='bg-elements rounded drop-shadow-md flex flex-col hover:drop-shadow-2xl'>
                         <div className='w-full'>
-                          <Image src={country.flags.svg} alt={country.name} width={340} height={100} className='rounded-t object-cover w-full xl:h-[200px] lg:h-[150px]'/>
+                          <Image priority src={country.flags.svg} alt={country.name} width={340} height={100} className='rounded-t object-cover w-full xl:h-[200px] lg:h-[150px]'/>
                         </div>
                         <div className='pb-5 px-5 text-text space-y-1'>
                           <p className='font-semibold py-5 text-lg'>{country.name}</p>

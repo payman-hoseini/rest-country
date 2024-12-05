@@ -25,7 +25,6 @@ export default async function CountryPage({ params } : { params : Promise<{ coun
                })) 
           }
      }
-     console.log(borderCountry)
      return(
           <>
                <main className='bg-background lg:h-screen'>
