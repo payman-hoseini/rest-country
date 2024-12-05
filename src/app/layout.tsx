@@ -1,5 +1,4 @@
 'use client'
-import type { Metadata } from "next";
 import "./globals.css";
 import { useState } from "react";
 
@@ -26,6 +25,9 @@ export default function RootLayout({
   }
   return (
     <html lang="en">
+      <head>
+        <title>Countries</title>
+      </head>
       <body className={`${dark ? "dark" : "light"}`}>
         <div className=" bg-elements font-Nunito py-5 drop-shadow-md px-5 lg:px-0">
             <div className='container mx-auto flex justify-between items-centerd'>

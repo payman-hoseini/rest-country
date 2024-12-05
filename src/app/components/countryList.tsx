@@ -2,17 +2,42 @@
 import Country from "./country";
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { separate } from "./shared/seprate";
 
 export default function CountryList({ countries } : {countries : Country[]}){
     const [inputCountryName , setInputCountryName] = useState("")
-    let findCountry : Country | undefined
-    let africanCountries : Country[]
-    let americaCountries : Country[]
-    let asiaCountries : Country[]
-    let europeCountries : Country[]
-    let oceaniaCountries : Country[]
+    const findCountry : Country | undefined = countries.find((country : Country) =>{
+      if(country.name.toUpperCase() == (inputCountryName.toUpperCase())){
+          // console.log(inputCountryName)
+          return country
+      }    
+    })  
+    const africanCountries : Country[] = countries.filter((country : Country) => {
+      if(country.region == "Africa"){
+        return country
+      }
+    })
+    const americaCountries : Country[] = countries.filter((country : Country) => {
+      if(country.region == "Americas"){
+        return country
+      }
+    })
+    const asiaCountries : Country[] = countries.filter((country : Country) => {
+      if(country.region == "Asia"){
+        return country
+      }
+    })
+    const europeCountries : Country[] = countries.filter((country : Country) => {
+      if(country.region == "Europe"){
+        return country
+      }
+    })
+    const oceaniaCountries : Country[] = countries.filter((country : Country) => {
+      if(country.region == "Oceania"){
+        return country
+      }
+    })
     const [region , setRegion] = useState("All")
     
     function regionHandler(e : React.ChangeEvent<HTMLSelectElement>){
@@ -21,38 +46,6 @@ export default function CountryList({ countries } : {countries : Country[]}){
     function inputCountryNameHandler(inputCountry : React.ChangeEvent<HTMLInputElement>){
         setInputCountryName(inputCountry.target.value)
     }
-    findCountry = countries.find((country : Country) =>{
-        if(country.name.toUpperCase() == (inputCountryName.toUpperCase())){
-            // console.log(inputCountryName)
-            return country
-        }
-        
-    })  
-    africanCountries = countries.filter((country : Country) => {
-      if(country.region == "Africa"){
-        return country
-      }
-    })
-    americaCountries = countries.filter((country : Country) => {
-      if(country.region == "Americas"){
-        return country
-      }
-    })
-    asiaCountries = countries.filter((country : Country) => {
-      if(country.region == "Asia"){
-        return country
-      }
-    })
-    europeCountries = countries.filter((country : Country) => {
-      if(country.region == "Europe"){
-        return country
-      }
-    })
-    oceaniaCountries = countries.filter((country : Country) => {
-      if(country.region == "Oceania"){
-        return country
-      }
-    })
     return(
         <>
             <div className='flex flex-col md:flex-row justify-between font-Nunito mx-5 lg:mx-0'>

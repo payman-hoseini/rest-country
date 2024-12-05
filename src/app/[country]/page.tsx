@@ -8,14 +8,14 @@ export default async function CountryPage({ params } : { params : Promise<{ coun
      const file = await fs.readFile(process.cwd() + '/src/app/data.json' , 'utf8')
      const countrieslist = JSON.parse(file)
 
-     let countryNameParam = decodeURI((await params).country)
+     const countryNameParam = decodeURI((await params).country)
      // countryNameParam = countryNameParam.replace("%20" , " ")
      const countryInfo : Country =  countrieslist.find(( country : Country ) =>{
           if(country.name == countryNameParam){
                return country
           }
      })
-     let borderCountry : Country[]  = [];
+     const borderCountry : Country[]  = [];
      if(Array.isArray(countryInfo?.borders)){
           for( let i =0 ; i< countryInfo?.borders.length ; i++){
                borderCountry.push(countrieslist.find(( country : Country ) => {
